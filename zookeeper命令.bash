@@ -33,13 +33,13 @@ ls2 /
 	dataLength = 0
 	numChildren = 1
 # 2.5 创建节点
-create /xiyouji "baigujing"
-	Created /xiyouji
-create /xiyouji/huaguoshan "sunwukong"
-	Created /xiyouji/huaguoshan
+create /king "xyj"
+	Created /king
+create /king/huaguoshan "sunwukong"
+	Created /king/huaguoshan
 # 2.6 获取节点的值
-get /xiyouji
-	baigujing
+get /king
+	xyj
 	cZxid = 0x100000003
 	ctime = Wed Mar 20 19:15:22 CST 2021
 	mZxid = 0x100000003
@@ -52,7 +52,7 @@ get /xiyouji
 	dataLength = 7
 	numChildren = 1
 
-get /xiyouji/huaguosha
+get /king/huaguosha
 	sunwukong
 	cZxid = 0x100000004
 	ctime = Wed Mar 20 19:15:23 CST 2021
@@ -66,57 +66,57 @@ get /xiyouji/huaguosha
 	dataLength = 6
 	numChildren = 0
 # 2.7 创建短暂节点
-create -e /xiyouji/tianting "erlangshen"
-	Created /xiyouji/tianting
+create -e /king/tianting "erlangshen"
+	Created /king/tianting
 # 当前客户端可看到
-ls /xiyouji 
+ls /king 
 	[huaguoshan, tianting]
 # 退出客户端
 quit
 # 重启
 /opt/module/zookeeper-3.4.10/bin/zkCli.sh
 # 再次查看根目录,短暂节点已删除
-ls /xiyouji 
+ls /king 
 	[huaguoshan]
 2.8 创建带序号的节点
 # 创建普通节点
-create /xiyouji/tianbing "tianbing6"
-	Created /xiyouji/tianbing6
+create /king/tianbing "tianbing6"
+	Created /king/tianbing6
 # 创建带序号的节点
-create -s /xiyouji/tianbing/tianbing1 "xiaotianquan"
-	Created /xiyouji/tianbing/tianbing10000000000
-create -s /xiyouji/tianbing/tianbing2 "xiaotianquan"
-	Created /xiyouji/tianbing/tianbing20000000001
-create -s /xiyouji/tianbing/tianbing3 "xiaotianquan"
-	Created /xiyouji/tianbing/tianbing30000000002
+create -s /king/tianbing/tianbing1 "xiaotianquan"
+	Created /king/tianbing/tianbing10000000000
+create -s /king/tianbing/tianbing2 "xiaotianquan"
+	Created /king/tianbing/tianbing20000000001
+create -s /king/tianbing/tianbing3 "xiaotianquan"
+	Created /king/tianbing/tianbing30000000002
 # 原来没有序号节点，序号从0开始,依次递增
 # 如果原节点下已有2个节点，则再排序时,从2开始，以此类推
 
 2.9 修改节点值
-set /xiyouji/tianbing "tuotatianwang"
+set /king/tianbing "tuotatianwang"
 2.10 节点值变化监听
-# node1 主机 上注册监听 /xiyouji节点数据变化
-get /xiyouji  watch
-# node2 主机 修改 /xiyouji节点的值
-set /xiyouji "didi"
+# node1 主机 上注册监听 /king节点数据变化
+get /king  watch
+# node2 主机 修改 /king节点的值
+set /king "didi"
 # node1 主机 收到数据变化的监听
 	WATCHER::
-	WatchedEvent state:SyncConnected type:NodeDataChanged path:/xiyouji
+	WatchedEvent state:SyncConnected type:NodeDataChanged path:/king
 2.11 节点的子节点变化监听（路径变化）
 # node1 主机 上注册监听 /huaguoshan 节点的子节点变化
-ls /xiyouji  watch
+ls /king  watch
 # node2 主机 创建 /huaguoshan 的子节点
-create /xiyouji/wujiguan "wujiguan"
-	Created /sanguo/wujiguan
+create /king/test "test"
+	Created /sanguo/test
 # node1 主机 收到子节点变化的监听
 	WATCHER::
-	WatchedEvent state:SyncConnected type:NodeChildrenChanged path:/xiyouji
+	WatchedEvent state:SyncConnected type:NodeChildrenChanged path:/king
 # 2.12 删除节点
-delete /xiyouji/wujiguan
+delete /king/test
 # 2.13 递归删除节点
-rmr /xiyouji/huaguoshan
+rmr /king/huaguoshan
 # 2.14 查看节点状态
-stat /xiyouji
+stat /king
 	cZxid = 0x100000003
 	ctime = Wed Mar 20 20:03:23 CST 2021
 	mZxid = 0x100000011
